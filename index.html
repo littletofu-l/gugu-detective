@@ -907,14 +907,14 @@
                 </div>
                 
                 <div class="member-card">
-                    <div class="member-avatar">�</div>
+                    <img class="member-avatar-img member-avatar-sm" src="logo.png" alt="oeer"/>
                     <div class="member-name">oeer</div>
                     <div class="member-role">海龟汤玩家 · 22岁</div>
                     <div class="member-desc">轻度推理爱好者，海龟汤非入门级玩家，金田一一人迷。</div>
                 </div>
                 
                 <div class="member-card">
-                    <div class="member-avatar">�</div>
+                    <img class="member-avatar-img member-avatar-sm" src="logo.png" alt="钛灯"/>
                     <div class="member-name">钛灯</div>
                     <div class="member-role">文学推理 · 17岁</div>
                     <div class="member-desc">文学爱好者，二次元，推理爱好者。</div>
@@ -937,10 +937,33 @@
                 </div>
                 
                 <div class="member-card">
-                    <img class="member-avatar-img member-avatar-sm" src="xiting.jpg" alt="晰庭"/>
-                    <div class="member-name">晰庭</div>
+                    <img class="member-avatar-img member-avatar-sm" src="xiting.jpg" alt="昕愿"/>
+                    <div class="member-name">昕愿</div>
                     <div class="member-role">同人文家 · 14岁</div>
                     <div class="member-desc">二次元、小说游戏爱好者，剧本杀玩家，恐怖重度爱好者，全能型同人文创作者。</div>
+                </div>
+
+                <div class="member-card">
+                    <img class="member-avatar-img member-avatar-sm" src="xiaodaya.jpg" alt="钠答鸦"/>
+                    <div class="member-name">钠答鸦</div>
+                    <div class="member-role">全能玩家 · 18岁</div>
+                    <div class="member-desc">推理爱好者，爱玩剧本杀、密室、狼人杀，喜欢编写剧本或规则类怪谈。什么都爱玩，有好玩的趣闻都带我一个(耶)</div>
+                </div>
+
+                <div class="member-card">
+                    <img class="member-avatar-img member-avatar-sm" src="qilin.jpg" alt="h"/>
+                    <div class="member-name">h</div>
+                    <div class="member-role">文学推理 · 19岁</div>
+                    <div class="member-desc">轻度推理文学爱好者。</div>
+                </div>
+            </div>
+
+            <div class="members-row">
+                <div class="member-card">
+                    <img class="member-avatar-img member-avatar-sm" src="ppqaq.jpg" alt="PPQAQ"/>
+                    <div class="member-name">PPQAQ</div>
+                    <div class="member-role">推理爱好者 · 25岁</div>
+                    <div class="member-desc">推理爱好者。</div>
                 </div>
             </div>
         </div>
@@ -1018,82 +1041,8 @@
     </footer>
 
     <script>
-        const sections = document.querySelectorAll('.hero, .members-section, .about-section, .footer');
-        let isScrolling = false;
-        let scrollTimeout;
-        let lastScrollY = 0;
-        const scrollDuration = 800;
-
-        function smoothScrollTo(targetY) {
-            if (isScrolling) return;
-            isScrolling = true;
-            
-            const startY = window.pageYOffset;
-            const distance = targetY - startY;
-            if (Math.abs(distance) < 10) {
-                isScrolling = false;
-                lastScrollY = window.pageYOffset;
-                return;
-            }
-            
-            const startTime = performance.now();
-
-            function easeInOutCubic(t) {
-                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-            }
-
-            function animateScroll(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / scrollDuration, 1);
-                const easeProgress = easeInOutCubic(progress);
-                
-                window.scrollTo(0, startY + distance * easeProgress);
-
-                if (progress < 1) {
-                    requestAnimationFrame(animateScroll);
-                } else {
-                    isScrolling = false;
-                    lastScrollY = window.pageYOffset;
-                }
-            }
-
-            requestAnimationFrame(animateScroll);
-        }
-
-        function snapToSection() {
-            if (isScrolling) return;
-            
-            const scrollY = window.pageYOffset;
-            const scrollDelta = scrollY - lastScrollY;
-            
-            if (Math.abs(scrollDelta) < 30) return;
-            
-            let currentIndex = 0;
-            sections.forEach((section, index) => {
-                if (scrollY >= section.offsetTop - 50) {
-                    currentIndex = index;
-                }
-            });
-
-            let targetIndex;
-            if (scrollDelta > 0) {
-                targetIndex = Math.min(currentIndex + 1, sections.length - 1);
-            } else {
-                targetIndex = Math.max(currentIndex - 1, 0);
-            }
-
-            smoothScrollTo(sections[targetIndex].offsetTop);
-        }
-
-        window.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                snapToSection();
-            }, 100);
-        }, { passive: true });
-
         document.querySelector('.scroll-hint').addEventListener('click', () => {
-            smoothScrollTo(sections[1].offsetTop);
+            document.querySelector('.members-section').scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 </body>
